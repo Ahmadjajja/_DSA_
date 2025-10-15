@@ -30,7 +30,5 @@ class Solution:
             memo[key] = res
             return res
 
-        # Optional prune: try bigger numbers first to hit target faster
-        nums.sort(reverse=True)
 
         return dfs(0, 0)
