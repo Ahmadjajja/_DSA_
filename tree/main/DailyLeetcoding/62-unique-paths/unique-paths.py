@@ -3,7 +3,6 @@ class Solution:
 
         matrix = [[0] * n] * m
 
-        print(matrix)
         matrix[0][0] = 1
 
         for row in range(m):
