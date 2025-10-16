@@ -1,14 +1,27 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        row = [1]  * n
 
-        upperRow = [1] * (n)
+        matrix = [[0] * n] * m
 
-        for index in range(m - 1):
-            for i in range(n - 2, -1, -1):
-                upperRow[i] = upperRow[i + 1] + row[i]
-            row = upperRow.copy()
-        
-        return upperRow[0]
+        print(matrix)
+        matrix[0][0] = 1
 
+        for row in range(m):
+            for col in range(n):
+                if row == 0 and col == 0:
+                    continue
+
+                currentVal = 0
+                # check if top is valid
+                if 0 <= row - 1 < m:
+                    currentVal += matrix[row - 1][col]
+
+                # check if left is valid
+                if 0 <= col - 1 < n:
+                    currentVal += matrix[row][col - 1]
+                
+                matrix[row][col] = currentVal
+
+
+        return matrix[m - 1][n - 1]
         
