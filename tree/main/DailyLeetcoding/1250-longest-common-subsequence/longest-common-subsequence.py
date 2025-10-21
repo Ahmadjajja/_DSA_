@@ -1,50 +1,30 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        DP = [[0 for j in range(len(text2) + 1)] for i in range(len(text1) + 1)]
+        n, m = len(text1), len(text2)
+        matrix = [[0]*(m+1) for _ in range(n+1)]  # independent rows
 
-        for i in range(len(text1) - 1, -1, -1):
-            for j in range(len(text2) - 1, -1, -1):
-                if text1[i] == text2[j]:
-                    DP[i][j] = 1 + DP[i + 1][j + 1]
+        for row in range(len(matrix)):
+            if row == 0:
+                continue
+            for col in range(len(matrix[0])):
+                if col == 0:
+                    continue
+                if text1[row - 1] == text2[col - 1]:
+                    matrix[row][col] = matrix[row - 1][col - 1] + 1
                 else:
-                    DP[i][j] =  max(DP[i][j + 1], DP[i + 1][j])
-        
-        return DP[0][0]
+                    matrix[row][col] = max(
+                        matrix[row][col - 1], # prev
+                        matrix[row - 1][col - 1], # diag
+                        matrix[row - 1][col], # up
+                    )
+
+        print(matrix)
+
+        return matrix[len(matrix) - 1][len(matrix[0]) - 1]
 
 
 
 
 
-        # res = -1
-        # subSeq = set()
-        # def DFS1(index, st, text):
-        #     nonlocal res, subSeq
-        #     # base condition
-        #     if index == len(text):
-        #         subSeq.add(st)
-        #         return
-            
-        #     DFS1(index + 1, st + "", text) # ignore current ch
-        #     DFS1(index + 1, st + text[index], text) # chose currejt ch
-            
 
-        
-        # DFS1(0, "", text1)
-
-        # def DFS2(index, st, text):
-        #     nonlocal res, subSeq
-        #     # base condition
-        #     if index == len(text):
-        #         if st in subSeq:
-        #             res = max(res, len(st))
-        #         return
-            
-        #     DFS2(index + 1, st + "", text) # ignore current ch
-        #     DFS2(index + 1, st + text[index], text) # chose currejt ch
-
-        # DFS2(0, "", text2)
-
-        # return res
-
-        
         
