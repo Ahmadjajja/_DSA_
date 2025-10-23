@@ -1,20 +1,44 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        cache = {}
+        memo = {}
 
-        def dfs(i, a):
-            if a == amount:
+        def dfs(i, rAmount):
+            if rAmount == 0:
                 return 1
-            if a > amount:
+            if i >= len(coins) or rAmount < 0:
                 return 0
-            if i == len(coins):
-                return 0
-            if (i, a) in cache:
-                return cache[(i, a)]
+            
+            if (i, rAmount) in memo:
+                return memo[(i, rAmount)]
+            
+            # 2 choices: take current coin or skip
+            take = dfs(i, rAmount - coins[i])
+            skip = dfs(i + 1, rAmount)
+            memo[(i, rAmount)] = take + skip
+            return memo[(i, rAmount)]
 
-            cache[(i, a)] = dfs(i, a + coins[i]) + dfs(i + 1, a)
-            return cache[(i, a)]
+        return dfs(0, amount)
 
-        return dfs(0, 0)
 
+# class Solution:
+#     def change(self, amount: int, coins: List[int]) -> int:
+#         memo = {}
+
+#         def dfs(index, rAmount):
+#             if rAmount == 0:
+#                 return 1
+#             if rAmount < 0 or index >= len(coins):
+#                 return 0
+            
+#             if (index, rAmount) in memo:
+#                 return memo[(index, rAmount)]
+#             ans = 0
+#             for i in range(index, len(coins)):
+#                 ans += dfs(index + 1, rAmount - coins[index])
+            
+#             memo[(index, rAmount)] = ans
+
+#             return ans
+
+#         return dfs(0, amount)
         
