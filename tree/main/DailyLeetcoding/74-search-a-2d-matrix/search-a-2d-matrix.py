@@ -13,19 +13,17 @@ class Solution:
             else:
                 row = mid
                 break
-        
-        print("row -> ", row)
 
         # find target in that row
         l, r = 0, len(matrix[0]) - 1
         while l <= r:
             mid = (l + r) // 2
-            if target == matrix[row][mid]:
-                return True
-            elif target < matrix[row][mid]:
+            if target < matrix[row][mid]:
                 r = mid - 1
-            else: 
+            elif target > matrix[row][mid]:
                 l = mid + 1
+            else:
+                return True
         
         return False
 
