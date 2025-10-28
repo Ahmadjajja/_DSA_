@@ -1,15 +1,13 @@
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        if len(s1) + len(s2) > len(s3) or len(s1) + len(s2) < len(s3):
+            return False
 
         memo = {}
 
         def dfs(i1, i2, i3, st):
-            print("s3 : ", s3)
-            print("st : ", st)
             if i1 >= len(s1) and i2 >= len(s2):
                 return st == s3
-            if i3 >= len(s3):
-                return False
             
             if i1 < len(s1) and s3[i3] != s1[i1] and i2 < len(s2) and s3[i3] != s2[i2]:
                 return False
