@@ -18,6 +18,3 @@ class Solution:
                         matrix[i-1][j-1]   # Substitution
                     )        
         return matrix[len(matrix) - 1][len(matrix[0]) - 1]
-
-
-        
