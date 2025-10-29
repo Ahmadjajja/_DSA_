@@ -26,8 +26,6 @@ class Solution:
                         matrix[i][j-1],    # Insertion
                         matrix[i-1][j-1]   # Substitution
                     )        
-        print(matrix)
-
         return matrix[len(matrix) - 1][len(matrix[0]) - 1]
 
 
