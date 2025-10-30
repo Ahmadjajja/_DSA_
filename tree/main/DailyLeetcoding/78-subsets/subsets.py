@@ -7,9 +7,7 @@ class Solution:
             if index >= len(nums):
                 res.append(subset.copy())
                 return
-            subset.append(nums[index])
-            dfs(index + 1, subset)
-            subset.pop()
+            dfs(index + 1, subset + [nums[index]])
             dfs(index + 1, subset)
         
         dfs(0, [])
