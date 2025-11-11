@@ -1,28 +1,26 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
+        resP = []
+        visit = set()
 
-        res = []
-
-        def DFS(per, seen):
-
-            # base case
-            if len(per) == len(nums):
-                res.append(per.copy())
+        def dfs(p):
+            if len(p) == len(nums):
+                resP.append(p.copy())
                 return
+            
 
             for i in range(len(nums)):
-                if i in seen:
+                if i in visit:
                     continue
                 
-                seen.add(i)
-                per.append(nums[i])
+                visit.add(i)
+                p.append(nums[i])
+                dfs(p)
+                visit.remove(i)
+                p.pop()
+        
+        dfs([])
 
-                DFS(per, seen)
+        return resP
 
-                seen.remove(i)
-                per.pop()
-
-        DFS([], set())
-
-        return res
         
