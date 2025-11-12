@@ -1,24 +1,25 @@
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
         nums.sort()
-        uniqueSubSet = set()
 
-        def backtrack(index, subSet):
-            nonlocal uniqueSubSet
 
-            if index == len(nums):
-                uniqueSubSet.add(tuple(subSet))
+        def dfs(i, p):
+            if i > len(nums):
                 return 
+            if i == len(nums):
+                res.append(p)
+                return
             
-            # ignore current element
-            backtrack(index + 1, subSet)
+            dfs(i + 1, p + [nums[i]])
 
-            # pick current element
-            subSet.append(nums[index])
-            backtrack(index + 1, subSet)
-            subSet.pop()
+            while i + 1 < len(nums) and nums[i] == nums[i + 1]:
+                i += 1
+            
+            dfs(i + 1, p)
 
-        backtrack(0, [])
+        dfs(0, [])
+        print(res)
 
-        return [list(tup) for tup in uniqueSubSet]
+        return res
         
