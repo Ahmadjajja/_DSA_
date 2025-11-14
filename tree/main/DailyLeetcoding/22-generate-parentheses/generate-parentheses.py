@@ -1,18 +1,21 @@
-from typing import List
-
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        ans = []
+        
+        res = []
 
-        def backtrack(current: str, open_count: int, close_count: int):
-            if len(current) == 2 * n:
-                ans.append(current)
+        def dfs(index, s, open, close):
+            if close > open or open > n or close > n:
                 return
 
-            if open_count < n:
-                backtrack(current + "(", open_count + 1, close_count)
-            if close_count < open_count:
-                backtrack(current + ")", open_count, close_count + 1)
+            if index == n * 2:
+                res.append(s)
+                return 
+            
+            dfs(index + 1, s + "(", open + 1, close)
+            dfs(index + 1, s + ")", open, close + 1)
 
-        backtrack("", 0, 0)
-        return ans
+        dfs(0, "", 0, 0)
+
+        return res
+
+
