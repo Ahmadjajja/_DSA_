@@ -19,9 +19,12 @@ class Solution:
         
         if countZeros <= k:
             longest1s = max(longest1s, r - l)
-            
-        
-        return longest1s
+
+        return longest1s 
+
+
+# tc = O(n)
+# sc = O(1)
 
 
         
