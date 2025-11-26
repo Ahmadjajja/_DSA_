@@ -1,6 +1,6 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        hashmap = {}
+        hashmap = defaultdict(list)
 
         for s in strs:
             # make freq hashmap
@@ -8,16 +8,12 @@ class Solution:
             for ch in s:
                 index = ord(ch) - ord('a')
                 fArr[index] += 1
-            
-            if tuple(fArr) in hashmap:
-                hashmap[tuple(fArr)].append(s)
-            else:
-                hashmap[tuple(fArr)] = [s]
+
+            hashmap[tuple(fArr)].append(s)
 
         ans = []
+        
+        return list(hashmap.values())
 
-        for key in hashmap:
-            ans.append(hashmap[key]) 
-        
-        return ans
-        
+# tc: O(n)
+# sc: O(n)
