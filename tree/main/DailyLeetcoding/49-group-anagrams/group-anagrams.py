@@ -1,17 +1,23 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-
-        groupAnagrams = {}
+        hashmap = {}
 
         for s in strs:
-            uniqueChArrCount = [0] * 26
+            # make freq hashmap
+            fArr = [0] * 26
             for ch in s:
-                uniqueChArrCount[ord(ch) - ord('a')] += 1
-            tupKey = tuple(uniqueChArrCount)
-            if tupKey in groupAnagrams:
-                groupAnagrams[tupKey].append(s)
+                index = ord(ch) - ord('a')
+                fArr[index] += 1
+            
+            if tuple(fArr) in hashmap:
+                hashmap[tuple(fArr)].append(s)
             else:
-                groupAnagrams[tupKey] = [s]
+                hashmap[tuple(fArr)] = [s]
+
+        ans = []
+
+        for key in hashmap:
+            ans.append(hashmap[key]) 
         
-        return list(groupAnagrams.values())
+        return ans
         
