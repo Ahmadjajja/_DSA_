@@ -1,25 +1,36 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
 
-        count, maxCount = 0, 0
-        freq = [0] * 26
+    # pick a window and try finding the maximum freq element
+    # upper case english letters -> 26
 
-        l, r = 0, 0
+        freqArr = [0] * 26
 
-        while r < len(s):
-            # include s[r] first
-            freq[ord(s[r]) - ord('A')] += 1
+        l = 0
 
-            # shrink while more than k replacements are needed
-            while (r - l + 1) - max(freq) > k:
-                freq[ord(s[l]) - ord('A')] -= 1
+        res = float("-inf")
+
+        for r in range(len(s)):
+            ch = s[r]
+            chIndex = ord(ch) - ord("A")
+            freqArr[chIndex] += 1
+            maxCount = max(freqArr)
+            misMatch = (r - l + 1) - maxCount
+            if misMatch <= k:
+                res = max(res, (r - l + 1))
+                continue
+            
+
+            while l < len(s) and not (misMatch <= k):
+                ch = s[l]
+                chIndex = ord(ch) - ord("A")
+                freqArr[chIndex] -= 1
                 l += 1
+                maxCount = max(freqArr)
+                misMatch = (r - l + 1) - maxCount
+            
+        return res
 
-            # update window length and answer
-            count = r - l + 1
-            if count > maxCount:
-                maxCount = count
 
-            r += 1
 
-        return maxCount
+
