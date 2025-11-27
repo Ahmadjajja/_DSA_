@@ -21,7 +21,7 @@ class Solution:
                 continue
             
 
-            while l < len(s) and not (misMatch <= k):
+            while not (misMatch <= k):
                 ch = s[l]
                 chIndex = ord(ch) - ord("A")
                 freqArr[chIndex] -= 1
@@ -32,5 +32,6 @@ class Solution:
         return res
 
 
-
+# tc -> O(n + 26 + constant time) -> O(n)
+# sc -> O(26) -> O(1)
 
