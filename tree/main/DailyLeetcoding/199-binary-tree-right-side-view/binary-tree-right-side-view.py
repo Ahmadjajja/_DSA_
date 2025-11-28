@@ -38,6 +38,6 @@ class Solution:
         
         return res
 
-# tc : O(n + h)
-# sc : O(n)
+# tc : O(n + h) = O(n)
+# sc : O(n + h) = O(n)
 
