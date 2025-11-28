@@ -11,7 +11,7 @@ class Solution:
                     q.append((r, c))
                 elif grid[r][c] == 1:
                     freshOranges += 1
-                    
+
         if freshOranges == 0:
             return 0
 
@@ -43,7 +43,8 @@ class Solution:
         return lvl
 
 
-
+# tc : O(m * n)
+# sc : O(m * n)
 
 
 
