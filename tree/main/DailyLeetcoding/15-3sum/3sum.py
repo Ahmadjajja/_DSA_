@@ -1,27 +1,32 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        res = []
         nums.sort()
+        res, quad = [], []
 
-        for i, a in enumerate(nums):
-            if a > 0:
-                break
-
-            if i > 0 and a == nums[i - 1]:
-                continue
-
-            l, r = i + 1, len(nums) - 1
-            while l < r:
-                threeSum = a + nums[l] + nums[r]
-                if threeSum > 0:
-                    r -= 1
-                elif threeSum < 0:
-                    l += 1
-                else:
-                    res.append([a, nums[l], nums[r]])
-                    l += 1
-                    r -= 1
-                    while nums[l] == nums[l - 1] and l < r:
+        def kSum(k, start, target):
+            if k == 2:
+                l, r = start, len(nums) - 1
+                while l < r:
+                    if nums[l] + nums[r] < target:
                         l += 1
+                    elif nums[l] + nums[r] > target:
+                        r -= 1
+                    else:
+                        res.append(quad + [nums[l], nums[r]])
+                        l += 1
+                        r -= 1
+                        while l < r and nums[l] == nums[l - 1]:
+                            l += 1
+                        while l < r and nums[r] == nums[r + 1]:
+                            r -= 1
+                return
 
+            for i in range(start, len(nums) - k + 1):
+                if i > start and nums[i] == nums[i - 1]:
+                    continue
+                quad.append(nums[i])
+                kSum(k - 1, i + 1, target - nums[i])
+                quad.pop()
+
+        kSum(3, 0, 0)
         return res
