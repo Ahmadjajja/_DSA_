@@ -1,36 +1,31 @@
-import collections
-from typing import List
-
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        if not grid:
-            return 0
 
-        visit = set()
-        totalIslands = 0
-        directions = [(0,1), (1,0), (0,-1), (-1,0)]
+        rows, cols = len(grid), len(grid[0])
+        visited = set()
+        dirArr = [(0,1),(0,-1),(1,0),(-1,0)]
 
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if (i, j) not in visit and grid[i][j] == "1":
-                    # BFS
-                    q = collections.deque()
-                    q.append((i, j))
-                    visit.add((i, j))
+        def dfs(r, c):
+            if (
+                r < 0 or r >= rows or
+                c < 0 or c >= cols or
+                grid[r][c] == "0" or
+                (r, c) in visited
+            ):
+                return
+            
+            visited.add((r, c))
 
-                    while q:
-                        r, c = q.popleft()
-                        for dr, dc in directions:
-                            nr, nc = r + dr, c + dc
-                            if (
-                                0 <= nr < len(grid) and
-                                0 <= nc < len(grid[0]) and
-                                (nr, nc) not in visit and
-                                grid[nr][nc] == "1"
-                            ):
-                                q.append((nr, nc))
-                                visit.add((nr, nc))
+            for dr, dc in dirArr:
+                dfs(r + dr, c + dc)
 
-                    totalIslands += 1
 
-        return totalIslands
+        islands = 0
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == "1" and (r, c) not in visited:
+                    dfs(r, c)
+                    islands += 1
+
+        return islands
