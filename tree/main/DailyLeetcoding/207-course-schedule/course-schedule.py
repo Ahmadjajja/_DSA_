@@ -1,31 +1,30 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # adjacensy list
-        preMap = { i:[] for i in range(numCourses)}
-        for crs, pre in prerequisites:
-            preMap[crs].append(pre)
-        
-        visitPath = set()
+        adjList = {i: [] for i in range(numCourses)}
 
-        def dfs(crs):
-            if crs in visitPath:
-                return False
-            if preMap[crs] == []:
+        for pre in prerequisites:
+            adjList[pre[0]].append(pre[1])
+
+        visit = set()
+
+        def dfs(course):
+            if len(adjList[course]) == 0:
                 return True
             
-            visitPath.add(crs)
-            for nei in preMap[crs]:
+            if course in visit:
+                return False
+                
+            visit.add(course)
+            for nei in adjList[course]:
                 if not dfs(nei):
                     return False
-            
-            visitPath.remove(crs)
-            preMap[crs] = []
-
+            visit.remove(course)
+            adjList[course] = []
             return True
+        
 
-        for i in range(numCourses):
-            if not dfs(i):
+        for c in range(numCourses):
+            if not dfs(c):
                 return False
 
         return True
-        
