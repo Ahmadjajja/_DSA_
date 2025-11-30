@@ -15,4 +15,7 @@ class Solution:
 
         return maxWater
 
+# tc: O(n)
+# sc: O(1)
+
         
