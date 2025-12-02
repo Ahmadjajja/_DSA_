@@ -28,9 +28,9 @@ class Solution:
             l1 = l1.next
             l2 = l2.next
         
-        if l1:
-            while l1:
-                s = l1.val + carry
+        if l1 or l2:
+            while l1 or l2:
+                s = (l1.val if l1 else l2.val) + carry
                 if carry > 0:
                     carry = 0
                 if s > 9:
@@ -40,20 +40,10 @@ class Solution:
                 newNode = ListNode(s)
                 dummy.next = newNode
                 dummy = dummy.next
-                l1 = l1.next
-        if l2:
-            while l2:
-                s = l2.val + carry
-                if carry > 0:
-                    carry = 0
-                if s > 9:
-                    s = s % 10
-                    carry += 1
-                
-                newNode = ListNode(s)
-                dummy.next = newNode
-                dummy = dummy.next
-                l2 = l2.next
+                if l1:
+                    l1 = l1.next
+                else:
+                    l2 = l2.next
         
         if carry > 0:
             dummy.next = ListNode(1)
