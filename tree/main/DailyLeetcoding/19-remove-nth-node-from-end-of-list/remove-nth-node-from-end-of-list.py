@@ -18,7 +18,7 @@ class Solution:
         
         # correct_pos = 5 - 2 + 1 = 4
         pos = countNodes - n + 1
-        
+
         # we will go by 2nd pass and remove at that location -> 2nd pass
         curPos = 0
         cur = head
@@ -31,5 +31,8 @@ class Solution:
             cur = cur.next
         
         return dummy.next
+
+# tc: O(n + n) -> O(n)
+# sc: O(1)
         
         
