@@ -19,6 +19,5 @@ class Solution:
             return memo[amount] 
 
         ans = dfs(amount)
-        print("memo : ", memo)
         return ans if ans != float('inf') else -1
         
