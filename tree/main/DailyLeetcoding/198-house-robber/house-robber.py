@@ -1,28 +1,18 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-
         memo = {}
-        def dfs(node):
-            # base case
-            if node > len(nums):
+        
+        def dfs(i):
+            if i >= len(nums):
                 return 0
             
-            if (node, nums[node]) in memo:
-                return memo[(node, nums[node])]
-
-            prevMaxVal = 0
-            for i in range(node + 2, len(nums)):
-                prevMaxVal = max(dfs(i), prevMaxVal)
+            if i in memo:
+                return memo[i]
             
-            memo[(node, nums[node])] = prevMaxVal + nums[node]
-
-            return prevMaxVal + nums[node]
+            rob_this = nums[i] + dfs(i + 2)
+            skip_this = dfs(i + 1)
             
-        ans = 0
-        for i in range(len(nums)):
-            ans = max(ans, dfs(i))
+            memo[i] = max(rob_this, skip_this)
+            return memo[i]
         
-        return ans
-        
-
-        
+        return dfs(0)
