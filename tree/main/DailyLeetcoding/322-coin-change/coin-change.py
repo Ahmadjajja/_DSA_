@@ -13,9 +13,9 @@ class Solution:
             
             minCoins = float("inf")
             for coin in coins:
-                minCoins = min(minCoins, dfs(amount - coin))
+                minCoins = min(minCoins, dfs(amount - coin) + 1)
             
-            memo[amount] = minCoins + 1
+            memo[amount] = minCoins
             return memo[amount] 
 
         ans = dfs(amount)
