@@ -2,28 +2,23 @@ class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         memo = {}
 
-        def dfs(curAmount):
-            if curAmount == 0:
+        def dfs(amount):
+            if amount == 0:
                 return 0
+            if amount < 0:
+                return float("inf")
             
-            if curAmount < 0:
-                return float('inf')
+            if amount in memo:
+                return memo[amount]
             
-            if curAmount in memo:
-                return memo[curAmount]
-
-            minCoins = float('inf')
+            minCoins = float("inf")
             for coin in coins:
-                minCoins = min(minCoins, dfs(curAmount - coin))
+                minCoins = min(minCoins, dfs(amount - coin))
             
-            memo[curAmount] = 1 + minCoins
-            
-            return memo[curAmount]
-
+            memo[amount] = minCoins + 1
+            return memo[amount] 
 
         ans = dfs(amount)
-
-        return -1 if ans == float('inf') else ans
-        
-
+        print("memo : ", memo)
+        return ans if ans != float('inf') else -1
         
