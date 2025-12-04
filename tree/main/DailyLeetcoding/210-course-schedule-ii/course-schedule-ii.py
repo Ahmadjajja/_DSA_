@@ -23,11 +23,10 @@ class Solution:
             return True
 
         for crs in range(numCourses):
-            if crs in res:
+            if crs in visited:
                 continue
             
             if not dfs(crs):
                 return []
-        print("crs -> ", crs)
         return res
         
