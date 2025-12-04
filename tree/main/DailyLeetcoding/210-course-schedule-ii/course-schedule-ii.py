@@ -1,32 +1,35 @@
 class Solution:
-    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        adjList = {i:[] for i in range(numCourses)}
-        for crs, pre in prerequisites:
-            adjList[crs].append(pre)
-        visiting = set() # current recursion stack
-        visited = set() # fully processed
-        res = []
-        
-        def dfs(crs):
-            if crs in visiting:
-                return False
-            if crs in visited:
-                return True
-            visiting.add(crs)
-            for nei in adjList[crs]:
+    def findOrder(self, numCourses, prerequisites):
+        # build graph: course -> pre
+        adj = {i: [] for i in range(numCourses)}
+        for course, pre in prerequisites:
+            adj[course].append(pre)
+
+        visiting = set()   # current recursion stack
+        visited = set()    # fully processed
+        res = []           # topo order 
+
+        def dfs(node):
+            if node in visiting:
+                return False        # found cycle
+            if node in visited:
+                return True         # already done
+
+            visiting.add(node)
+
+            for nei in adj[node]:
                 if not dfs(nei):
                     return False
-            visiting.remove(crs)
-            visited.add(crs)
-            res.append(crs)
+
+            visiting.remove(node)
+            visited.add(node)
+            res.append(node)        # postorder
 
             return True
 
-        for crs in range(numCourses):
-            if crs in visited:
-                continue
-            
-            if not dfs(crs):
-                return []
-        return res
-        
+        for c in range(numCourses):
+            if c not in visited:
+                if not dfs(c):
+                    return []       # cycle → no order
+
+        return res            # reverse to get correct order
