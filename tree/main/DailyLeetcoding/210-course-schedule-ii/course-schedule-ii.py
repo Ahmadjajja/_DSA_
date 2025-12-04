@@ -1,34 +1,33 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        adj = [[] for i in range(numCourses)]
-        for u, v in prerequisites:
-            adj[v].append(u)
+        adjList = {i:[] for i in range(numCourses)}
+        for crs, pre in prerequisites:
+            adjList[crs].append(pre)
+        visiting = set() # current recursion stack
+        visited = set() # fully processed
+        res = []
         
-        # code here
-        q = collections.deque()
-        inDegree = [0 for _ in range(len(adj))]
-        
-        # No of incoming edges to a node
-        for i in range(numCourses):
-            for nei in adj[i]:
-                inDegree[nei] += 1
-                
-        # Insert all nodes with indegree 0 in q
-        for i in range(numCourses):
-            if inDegree[i] == 0:
-                q.append(i)
+        def dfs(crs):
+            if crs in visiting:
+                return False
+            if crs in visited:
+                return True
+            visiting.add(crs)
+            for nei in adjList[crs]:
+                if not dfs(nei):
+                    return False
+            visiting.remove(crs)
+            visited.add(crs)
+            res.append(crs)
 
-        topo = []
-        # Take them out of the q & just reduce the degree by 1 of adjacent node
-        while q:
-            node = q.popleft()
-            topo.append(node)
+            return True
+
+        for crs in range(numCourses):
+            if crs in res:
+                continue
             
-            for nei in adj[node]:
-                inDegree[nei] -= 1
-                
-                if inDegree[nei] == 0:
-                    q.append(nei)
+            if not dfs(crs):
+                return []
+        print("crs -> ", crs)
+        return res
         
-        
-        return topo if len(topo) == numCourses else []
