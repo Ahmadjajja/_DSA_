@@ -4,14 +4,13 @@ class Solution:
         for u, v in edges:
             adjList[u].append(v)
             adjList[v].append(u)
-        time = 0
+            
         visit = set()
-        def dfs(node):
-            nonlocal time
+        def dfs(node, time):
             if len(adjList[node]) == 0:
                 if hasApple[node]:
-                    return True
-                return False
+                    return [True, time]
+                return [False, time]
             
             ans = False
             visit.add(node)
@@ -19,18 +18,19 @@ class Solution:
                 if nei in visit:
                     continue
                 time += 1
-                hasAp = dfs(nei)
+                hasAp, t = dfs(nei, time)
                 if hasAp:
-                    time += 1
+                    t += 1
                 else:
-                    time -= 1
+                    t -= 1
+                time = t
                 
                 ans = ans or hasAp
             visit.remove(node)
             
-            return ans or hasApple[node]
+            return [ans or hasApple[node], time]
 
-        dfs(0)
-        return time
+        
+        return dfs(0, 0)[1]
         
         
