@@ -1,38 +1,17 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
+        maxReach = 0  # farthest index we can reach so far
 
-        # ans = False
-
-        # def DFS(index):
-
-        #     nonlocal ans
-
-        #     if index == len(nums) - 1:
-        #         return True
-
-        #     if index >= len(nums):
-        #         return False
-
-
-        #     for i in range(index, index + nums[index]):
-
-        #         ans = ans or DFS(i + 1) 
-            
-        #     return ans
-
-
-        # return DFS(0)
-        maxReach = 0
         for i in range(len(nums)):
+            # if we are standing on an index we can't reach
             if i > maxReach:
                 return False
+
+            # update farthest reachable index
             maxReach = max(maxReach, i + nums[i])
-        return True
 
+            # if we can reach or pass the last index
+            if maxReach >= len(nums) - 1:
+                return True
 
-        # goal = len(nums) - 1
-        # for i in range(len(nums) - 2, -1, -1):
-        #     if nums[i] >= (goal - i):
-        #         goal = i
-            
-        # return goal == 0
+        return True  # if loop finishes, last index is reachable
