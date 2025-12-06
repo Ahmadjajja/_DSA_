@@ -15,8 +15,6 @@ class Solution:
             
             l += 1
             r -= 1
-
-        print("l : ", l)
-        print("r : ", r)
+            
         return r - l + 1
         
