@@ -8,54 +8,49 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
+        # find starting point of 2nd half
 
-
-        # 1. reverse the 2nd half the linkedList
-
+        dummy = ListNode()
+        dummy.next = head
         slow = fast = head
-
         while fast and fast.next:
+            dummy = dummy.next
+            if slow:
+                slow = slow.next
+            if fast.next:
+                fast = fast.next.next
+        if fast:
             slow = slow.next
-            fast = fast.next.next
-        
-        cur = slow.next
-        slow.next = None
+            dummy = dummy.next
+        dummy.next = None
 
+        # reverse 2nd half
         prev = None
+        cur = slow
 
         while cur:
-            temp = cur.next
+            next = cur.next
             cur.next = prev
             prev = cur
-            cur = temp
-
-        cur1 = head
-        cur2 = prev
-
-        while cur2:
-            temp1 = cur1.next
-            temp2 = cur2.next
-
-            cur1.next = cur2
-            cur2.next = temp1
-            
-
-            cur1 = temp1
-            cur2 = temp2
+            cur = next
         
+        # re-order the list according to the rules
+        start1 = head
+        start2 = prev
+
+        while start1 and start2:
+            next1 = start1.next
+            next2 = start2.next
+            start1.next = start2
+            start2.next = next1
+            start1 = next1
+            start2 = next2
+
+
+
+
+
         
-            
 
-
-
-
-
-
-
-            
-
-
-
-        # 2. Merge the both halves
 
         
