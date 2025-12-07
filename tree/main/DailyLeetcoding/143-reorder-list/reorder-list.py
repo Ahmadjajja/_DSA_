@@ -35,16 +35,16 @@ class Solution:
             cur = next
         
         # re-order the list according to the rules
-        start1 = head
-        start2 = prev
+        first = head
+        second = prev
 
-        while start1 and start2:
-            next1 = start1.next
-            next2 = start2.next
-            start1.next = start2
-            start2.next = next1
-            start1 = next1
-            start2 = next2
+        while first and second:
+            next1 = first.next
+            next2 = second.next
+            first.next = second
+            second.next = next1
+            first = next1
+            second = next2
 
 
 
