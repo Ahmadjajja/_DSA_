@@ -28,7 +28,6 @@ class Solution:
         dummy.next = None
 
         # reverse 2nd half
-        dummy = None
         prev = None
         cur = slow
 
