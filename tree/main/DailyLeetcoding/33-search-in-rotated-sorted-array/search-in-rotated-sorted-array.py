@@ -10,12 +10,6 @@ class Solution:
             if nums[mid] == target:
                 return mid
 
-            # if nums[left] < nums(mid) and target <= nums[mid] and target >= nums[left]:
-            #     mid = right - 1
-            # else:
-            #     mid = left + 1
-
-            
             if nums[left] <= nums[mid]:
                 if target > nums[mid] or target < nums[left]:
                     left = mid + 1
@@ -28,4 +22,3 @@ class Solution:
                     left = mid + 1       
 
         return -1
-        
