@@ -10,8 +10,6 @@ class Solution:
                 fArr[index] += 1
 
             hashmap[tuple(fArr)].append(s)
-
-        ans = []
         
         return list(hashmap.values())
 
