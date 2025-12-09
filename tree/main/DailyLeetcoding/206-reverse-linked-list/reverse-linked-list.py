@@ -15,17 +15,4 @@ class Solution:
         
         return prev
 
-        # def reverse(cur, prev):
-        #     if not cur:
-        #         return prev
-
-        #     next = cur.next
-        #     cur.next = prev
-        #     prev = cur
-        #     cur = next
-
-        #     return reverse(cur, prev)
-        
-        # return reverse(head, None)
-
 
