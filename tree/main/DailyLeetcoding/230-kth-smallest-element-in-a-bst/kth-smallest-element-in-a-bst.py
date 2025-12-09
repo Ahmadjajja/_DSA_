@@ -4,23 +4,18 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        def dfs(node, k):
-            if not node:
-                return (None, k)
-            
-            ans, k = dfs(node.left, k)
-            if ans != None:
-                return [ans, k]
+        stack = []
+        curr = root
 
+        while stack or curr:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
             k -= 1
             if k == 0:
-                return [node.val, k]
-            
-            return dfs(node.right, k)
-
-        dfs(root, k)[0]
-        return dfs(root, k)[0]
-
-        
+                return curr.val
+            curr = curr.right
