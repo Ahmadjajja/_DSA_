@@ -4,6 +4,7 @@ class Solution:
         res = []
 
         for i in range(len(nums) - 2):
+            # skipping duplicates
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
             num1 = nums[i]
@@ -19,6 +20,7 @@ class Solution:
                     l += 1
                     r -= 1
 
+                    # skipping duplicates
                     while l < r and nums[l] == nums[l - 1]:
                         l += 1
                     while l < r and nums[r] == nums[r + 1]:
