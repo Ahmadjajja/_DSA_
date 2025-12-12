@@ -1,8 +1,6 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-
-        matrix = [[0] * n] * m
-
+        matrix = [[0] * n for _ in range(m)]
         matrix[0][0] = 1
 
         for row in range(m):
@@ -20,7 +18,7 @@ class Solution:
                     currentVal += matrix[row][col - 1]
                 
                 matrix[row][col] = currentVal
-
-
+        print("matrix : ", matrix)
         return matrix[m - 1][n - 1]
+        
         
