@@ -1,59 +1,36 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
-        """
-        Do not return anything, modify head in-place instead.
-        """
-
-        if not head or not head.next or not head.next.next:
+        if not head or not head.next:
             return
 
-        # find starting point of 2nd half
-        dummy = ListNode()
-        dummy.next = head
-        slow = fast = head
+        # 1) Find middle (slow ends at mid)
+        slow, fast = head, head.next
         while fast and fast.next:
-            dummy = dummy.next
-            if slow:
-                slow = slow.next
-            if fast.next:
-                fast = fast.next.next
-        if fast:
             slow = slow.next
-            dummy = dummy.next
-        dummy.next = None
+            fast = fast.next.next
 
-        # reverse 2nd half
+        # 2) Split into two lists: head..mid and second..
+        second = slow.next
+        slow.next = None
+
+        # 3) Reverse second half
         prev = None
-        cur = slow
-
+        cur = second
         while cur:
-            next = cur.next
+            nxt = cur.next
             cur.next = prev
             prev = cur
-            cur = next
-        
-        # re-order the list according to the rules
+            cur = nxt
+        second = prev  # new head of reversed half
+
+        # 4) Merge: L0 -> R0 -> L1 -> R1 ...
         first = head
-        second = prev
+        while second:
+            n1 = first.next
+            n2 = second.next
 
-        while first and second:
-            next1 = first.next
-            next2 = second.next
             first.next = second
-            second.next = next1
-            first = next1
-            second = next2
+            second.next = n1
 
-
-
-
-
-        
-
-
-        
+            first = n1
+            second = n2
