@@ -4,7 +4,7 @@ class Solution:
             return
 
         # 1) Find middle (slow ends at mid)
-        slow, fast = head, head.next
+        slow, fast = head, head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
