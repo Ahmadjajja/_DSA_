@@ -17,10 +17,16 @@ class Solution:
             left = dfs(node.left, ans)
             right = dfs(node.right, ans)
 
+            if not left[1] or not right[1]:
+                return [0, False]
+
             if abs(left[0] - right[0]) > 1:
                 return [0, False]
             
-            return [max(left[0], right[0]) + 1, left[1] and right[1]]
+            return [max(left[0], right[0]) + 1, True]
 
         return dfs(root, True)[1]
+
+# tc: O(n)
+# sc: O(h)
         
