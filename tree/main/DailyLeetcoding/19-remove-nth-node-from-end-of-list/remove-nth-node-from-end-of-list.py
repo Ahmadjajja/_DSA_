@@ -10,7 +10,7 @@ class Solution:
         dummy = ListNode(None)
         dummy.next = head
 
-        fast, slow = dummy, dummy
+        fast, slow = dummy, dummy 
         for _ in range(n + 1):
             fast = fast.next
       
