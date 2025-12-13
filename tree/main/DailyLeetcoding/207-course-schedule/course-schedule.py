@@ -14,7 +14,7 @@ class Solution:
                 return False
             if preMap[crs] == []:
                 return True
-
+                
             visiting.add(crs)
             for pre in preMap[crs]:
                 if not dfs(pre):
@@ -25,5 +25,5 @@ class Solution:
 
         for c in range(numCourses):
             if not dfs(c):
-                return False
+                return False  
         return True
