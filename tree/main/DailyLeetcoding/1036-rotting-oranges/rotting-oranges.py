@@ -1,4 +1,3 @@
-from collections import deque
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         # put all rotten oranges positions in q
@@ -45,11 +44,3 @@ class Solution:
 
 # tc : O(m * n)
 # sc : O(m * n)
-
-
-
-
-
-
-        
-        
