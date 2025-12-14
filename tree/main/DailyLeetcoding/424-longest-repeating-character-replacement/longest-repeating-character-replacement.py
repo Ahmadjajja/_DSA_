@@ -21,7 +21,7 @@ class Solution:
                 continue
             
 
-            while not (misMatch <= k):
+            while misMatch > k:
                 ch = s[l]
                 chIndex = ord(ch) - ord("A")
                 freqArr[chIndex] -= 1
