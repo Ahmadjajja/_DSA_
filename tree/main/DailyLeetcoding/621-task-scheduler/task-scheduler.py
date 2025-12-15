@@ -12,7 +12,7 @@ class Solution:
 
             if maxHeap:
                 cnt = 1 + heapq.heappop(maxHeap)
-                if cnt:
+                if not (cnt == 0):
                     q.append([cnt, time + n])
             
             if q and q[0][1] == time:
