@@ -34,8 +34,7 @@ class LRUCache:
  
     def put(self, key: int, value: int) -> None:
         if key in self.cache:
-            cur = self.cache[key]
-            self.remove(cur)
+            self.remove(self.cache[key])
         
         self.cache[key] = ListNode(key,value)
         self.insert(self.cache[key])
