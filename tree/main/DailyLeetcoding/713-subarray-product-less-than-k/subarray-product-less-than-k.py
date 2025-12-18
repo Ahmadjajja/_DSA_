@@ -18,6 +18,41 @@ class Solution:
                 countSubArr += (r - left + 1)
         
         return countSubArr
+
+
+
+
+
+
+# # Microsoft
+
+# 1. no
+# 2. leetcode
+# 3. 
+
+
+# # industry -> internship
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
 
             
