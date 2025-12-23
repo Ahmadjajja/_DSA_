@@ -6,6 +6,8 @@ class Solution:
         right = len(people) - 1
         countBoats = 0
 
+        # [1, 2, 2, 3], 3 => 3
+
         while left <= right:
 
             sum = people[left] + people[right]
