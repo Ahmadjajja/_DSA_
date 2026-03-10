@@ -11,7 +11,7 @@ class Solution:
         def dfs(node):
             nonlocal ans, counter
 
-            if not node or ans != -1:
+            if not node:
                 return
 
             dfs(node.left)
