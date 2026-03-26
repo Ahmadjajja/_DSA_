@@ -1,17 +1,22 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        hashmap = defaultdict(list)
 
+        hm = {}
         for s in strs:
-            # make freq hashmap
-            fArr = [0] * 26
+
+            freq = [0] * 26
             for ch in s:
-                index = ord(ch) - ord('a')
-                fArr[index] += 1
+                chIndex = ord(ch) - ord('a')
+                freq[chIndex] += 1
+            freq = tuple(freq)
+            if freq in hm:
+                hm[freq].append(s)
+            else:
+                hm[freq] = [s]
 
-            hashmap[tuple(fArr)].append(s)
-        
-        return list(hashmap.values())
+        print(list(hm.values()))
 
-# tc: O(n)
-# sc: O(n)
+        return list(hm.values())
+
+# tc -> O(n)
+# sc -> O(n)
