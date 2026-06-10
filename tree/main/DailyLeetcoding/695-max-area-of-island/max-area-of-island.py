@@ -1,38 +1,35 @@
-import collections
-from typing import List
-
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        if not grid:
-            return 0
+        visited = set()
+        dirArr = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+        res = 0
+        rows, cols = len(grid), len(grid[0])
 
-        visit = set()
-        maxArea = 0
-        directions = [(0,1), (1,0), (0,-1), (-1,0)]
+        def dfs(row, col):
 
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if (i, j) not in visit and grid[i][j] == 1:
-                    # BFS
-                    q = collections.deque()
-                    q.append((i, j))
-                    visit.add((i, j))
-                    curr_area = 0
+            visited.add((row, col))
+            size = 1
+            for cr, cc in dirArr:
+                nr, nc = row + cr, col + cc
 
-                    while q:
-                        r, c = q.popleft()
-                        curr_area += 1
-                        for dr, dc in directions:
-                            nr, nc = r + dr, c + dc
-                            if (
-                                0 <= nr < len(grid) and
-                                0 <= nc < len(grid[0]) and
-                                (nr, nc) not in visit and
-                                grid[nr][nc] == 1
-                            ):
-                                q.append((nr, nc))
-                                visit.add((nr, nc))
+                if nr < 0 or nr >= rows or nc < 0 or nc >= cols or grid[nr][nc] == 0 or (nr, nc) in visited:
+                    continue
+                
+                size += dfs(nr, nc)
+            return size
 
-                    maxArea = max(maxArea, curr_area)
 
-        return maxArea
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 0 or (r, c) in visited:
+                    continue
+                
+                res = max(res, dfs(r, c))
+        
+        return res
+
+# tc => O(n * m)
+# sc => O(n * m)
+                
+        
