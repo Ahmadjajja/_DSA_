@@ -1,46 +1,32 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        # put all rotten oranges positions in q
-        q = deque()
-        freshOranges = 0
+        q = collections.deque()
         rows, cols = len(grid), len(grid[0])
-        for r in range(rows):
-            for c in range(cols):
-                if grid[r][c] == 2:
-                    q.append((r, c))
-                elif grid[r][c] == 1:
-                    freshOranges += 1
+        dirArr = [(0, -1), (-1, 0), (0, 1), (1, 0)]
+        time = 0
+        unRottenOranges = 0
 
-        if freshOranges == 0:
-            return 0
-
-        
-        # multi sourse bfs
-        lvl = 0
-        dirArr = [[0, -1], [-1, 0], [0, 1], [1, 0]] # left, top, right, bottom
-        
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 2:
+                    q.append((row, col))
+                elif grid[row][col] == 1:
+                    unRottenOranges += 1
 
         while q:
             qSize = len(q)
+            rotted = False
             for i in range(qSize):
-                cr, cc = q.popleft()
-                for r,c in dirArr:
-                    nr, nc = cr + r, cc + c
+                r, c = q.popleft()
+                for dr, dc in dirArr:
+                    nr, nc = dr + r, dc + c
+                    if nr < 0 or nr >= rows or nc < 0 or nc >= cols or grid[nr][nc] != 1:
+                        continue
+                    grid[nr][nc] = 2
+                    unRottenOranges -= 1
+                    q.append((nr, nc))
+                    rotted = True
+            if rotted:
+                time += 1
 
-                    if 0 <= nr and nr < rows and nc >= 0 and nc < cols and grid[nr][nc] == 1:
-                        q.append((nr,nc))
-                        grid[nr][nc] = 2
-                        freshOranges -= 1
-
-            lvl += 1
-            if freshOranges == 0:
-                break
-        
-        if freshOranges > 0:
-            return -1
-        
-        return lvl
-
-
-# tc : O(m * n)
-# sc : O(m * n)
+        return -1 if unRottenOranges != 0 else time
