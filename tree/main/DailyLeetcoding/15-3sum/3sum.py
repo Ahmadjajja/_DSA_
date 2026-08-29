@@ -1,29 +1,32 @@
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         nums.sort()
-        res = []
-        for i in range(len(nums)):
-            if i > 0 and nums[i] == nums[i - 1]:
-                continue
-            
-            a = nums[i]
+        res, quad = [], []
 
-            # 2 pointer approach
+        def kSum(k, start, target):
+            if k == 2:
+                l, r = start, len(nums) - 1
+                while l < r:
+                    if nums[l] + nums[r] < target:
+                        l += 1
+                    elif nums[l] + nums[r] > target:
+                        r -= 1
+                    else:
+                        res.append(quad + [nums[l], nums[r]])
+                        l += 1
+                        r -= 1
+                        while l < r and nums[l] == nums[l - 1]:
+                            l += 1
+                        while l < r and nums[r] == nums[r + 1]:
+                            r -= 1
+                return
 
-            left, right = i + 1, len(nums) - 1
+            for i in range(start, len(nums) - k + 1):
+                if i > start and nums[i] == nums[i - 1]:
+                    continue
+                quad.append(nums[i])
+                kSum(k - 1, i + 1, target - nums[i])
+                quad.pop()
 
-            while left < right:
-                b, c = nums[left], nums[right]
-                tot = a + b + c
-
-                if tot > 0:
-                    right -= 1
-                elif tot < 0:
-                    left += 1
-                else:
-                    res.append([a, b, c])
-                    left += 1
-                    while nums[left] == nums[left - 1] and left < right:
-                        left += 1
-
+        kSum(3, 0, 0)
         return res
