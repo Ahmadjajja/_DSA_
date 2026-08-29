@@ -1,18 +1,16 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        monotonic_stack = [] # decreasing order
-        output = [0] * len(temperatures)
+        n = len(temperatures)
+        res = [0] * n
 
-        for i, t in enumerate(temperatures):
+        for i in range(n - 2, -1, -1):
+            j = i + 1
+            while j < n and temperatures[j] <= temperatures[i]:
+                if res[j] == 0:
+                    j = n
+                    break
+                j += res[j]
 
-            while monotonic_stack and t > monotonic_stack[-1][0]:
-
-                temp = monotonic_stack.pop()
-
-                output[temp[1]] = i - temp[1]
-
-            monotonic_stack.append([t, i])
-        
-        return output
-
-        
+            if j < n:
+                res[i] = j - i
+        return res
