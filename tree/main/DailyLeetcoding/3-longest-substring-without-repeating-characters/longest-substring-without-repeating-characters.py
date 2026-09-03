@@ -14,3 +14,5 @@ class Solution:
             longSubStr = max(longSubStr, r - l)
         
         return longSubStr
+        # tc -> O(n)
+        # sc -> O(n)
