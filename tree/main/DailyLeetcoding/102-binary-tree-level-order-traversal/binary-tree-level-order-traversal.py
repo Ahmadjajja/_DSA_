@@ -21,7 +21,6 @@ class Solution:
             dfs(node.right, lvl + 1)
         
         dfs(root, 0)
-        print("hm -> ", hm)
         res = []
         for key, val in hm.items():
             res.append(val)
