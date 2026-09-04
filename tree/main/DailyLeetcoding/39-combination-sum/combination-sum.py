@@ -1,25 +1,20 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
-        
-        def dfs(index, curSum, curCum):
 
-            if curSum == target:
-                res.append(curCum)
+        def dfs(index, sum, com):
+
+            # break point
+            if sum == target:
+                res.append(com)
                 return
-
-            if index >= len(candidates) or curSum > target:
+            if sum > target: 
                 return
-
+            
             for i in range(index, len(candidates)):
-                dfs(i, curSum + candidates[i], curCum + [candidates[i]])
+                dfs(i, sum + candidates[i], com + [candidates[i]])
 
-            return
-
+        
         dfs(0, 0, [])
-
         return res
-        
-
-        
         
