@@ -6,19 +6,9 @@
 #         self.right = right
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-
-        # 0: [1],
-        # 1: [2, 3]
-        # 2: [4]
-        # 3: [5]
-
-        # [1, 3, 4, 5]
-        
-        res = []
         hm = {}
 
-        def dfs(node, lvl):
-            # base case
+        def dfs(node,lvl):
             if not node:
                 return
             
@@ -29,15 +19,10 @@ class Solution:
             
             dfs(node.left, lvl + 1)
             dfs(node.right, lvl + 1)
-
-
-        dfs(root, 0)
-
-        for i in range(len(hm)):
-            res.append(hm[i][-1])
         
+        dfs(root, 0)
+        res = []
+        for key, val in hm.items():
+            res.append(val[len(val) - 1])
+
         return res
-
-# tc : O(n + h) = O(n)
-# sc : O(n + h) = O(n)
-
