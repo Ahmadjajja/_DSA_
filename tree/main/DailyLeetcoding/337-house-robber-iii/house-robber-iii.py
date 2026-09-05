@@ -1,15 +1,16 @@
 class Solution:
-    def rob(self, root):
+    def rob(self, root: Optional[TreeNode]) -> int:
         def dfs(node):
+            """Returns (max_if_robbed, max_if_not_robbed) for the subtree rooted at node."""
             if not node:
-                return (0, 0)  # (robbed, not_robbed)
+                return 0, 0
 
-            left_rob, left_not = dfs(node.left)
-            right_rob, right_not = dfs(node.right)
+            left_rob, left_skip = dfs(node.left)
+            right_rob, right_skip = dfs(node.right)
 
-            robbed = node.val + left_not + right_not
-            not_robbed = max(left_rob, left_not) + max(right_rob, right_not)
+            rob = node.val + left_skip + right_skip
+            skip = max(left_rob, left_skip) + max(right_rob, right_skip)
 
-            return (robbed, not_robbed)
+            return rob, skip
 
         return max(dfs(root))
