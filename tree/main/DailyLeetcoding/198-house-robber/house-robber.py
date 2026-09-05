@@ -2,21 +2,16 @@ class Solution:
     def rob(self, nums: List[int]) -> int:
         cache = {}
 
-        def dfs(index, sum):
+        def dfs(index):
             if index >= len(nums):
-                return sum
-            
-            if (index, sum) in cache:
-                return cache[(index, sum)]
-            
-            # skip
-            left = dfs(index + 1, sum)
-            # choose
-            right = dfs(index + 2, sum + nums[index])
+                return 0
+            if index in cache:
+                return cache[index]
 
-            cache[(index, sum)] = max(left, right)
+            skip = dfs(index + 1)
+            take = nums[index] + dfs(index + 2)
 
-            return cache[(index, sum)]
-        
-        return dfs(0, 0)
-        
+            cache[index] = max(skip, take)
+            return cache[index]
+
+        return dfs(0)
