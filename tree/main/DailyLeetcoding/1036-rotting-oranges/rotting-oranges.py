@@ -1,32 +1,31 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        q = collections.deque()
-        rows, cols = len(grid), len(grid[0])
-        dirArr = [(0, -1), (-1, 0), (0, 1), (1, 0)]
+        q = deque()
+        fresh = 0
         time = 0
-        unRottenOranges = 0
 
-        for row in range(rows):
-            for col in range(cols):
-                if grid[row][col] == 2:
-                    q.append((row, col))
-                elif grid[row][col] == 1:
-                    unRottenOranges += 1
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if grid[r][c] == 1:
+                    fresh += 1
+                if grid[r][c] == 2:
+                    q.append((r, c))
 
-        while q:
-            qSize = len(q)
-            rotted = False
-            for i in range(qSize):
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        while fresh > 0 and q:
+            length = len(q)
+            for i in range(length):
                 r, c = q.popleft()
-                for dr, dc in dirArr:
-                    nr, nc = dr + r, dc + c
-                    if nr < 0 or nr >= rows or nc < 0 or nc >= cols or grid[nr][nc] != 1:
-                        continue
-                    grid[nr][nc] = 2
-                    unRottenOranges -= 1
-                    q.append((nr, nc))
-                    rotted = True
-            if rotted:
-                time += 1
 
-        return -1 if unRottenOranges != 0 else time
+                for dr, dc in directions:
+                    row, col = r + dr, c + dc
+                    if (row in range(len(grid))
+                        and col in range(len(grid[0]))
+                        and grid[row][col] == 1
+                    ):
+                        grid[row][col] = 2
+                        q.append((row, col))
+                        fresh -= 1
+            time += 1
+
+        return time if fresh == 0 else -1
