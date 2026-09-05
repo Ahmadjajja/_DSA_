@@ -1,32 +1,15 @@
-from typing import List
-
 class Solution:
-    def rob(self, numbers: List[int]) -> int:
-        length = len(numbers)
+    def rob(self, nums: List[int]) -> int:
+        length = len(nums)
         if length == 1 or length == 2 or length == 3:
-                return max(numbers)
-
-        def helper(nums):
-
-            memo = {}
-
-            def DFS(index):
-
-                if index >= len(nums):
-                    return 0
-                
-                if index in memo:
-                    return memo[index]
-                
-                left = DFS(index + 2)
-                right = DFS(index + 3)
-
-                ans = max(left, right) + nums[index]
-                memo[index] = ans
-
-                return ans
-
-            return max(DFS(0), DFS(1))
-
-        return max(helper(numbers[:length - 1]), helper(numbers[1:]))
-
+                return max(nums)
+        
+        def helper(arr):
+            rob1, rob2 = 0, 0
+            for num in arr:
+                temp = max(num + rob1, rob2)
+                rob1 = rob2
+                rob2 = temp
+            return rob2
+        
+        return max(helper(nums[1:]), helper(nums[:-1]))
