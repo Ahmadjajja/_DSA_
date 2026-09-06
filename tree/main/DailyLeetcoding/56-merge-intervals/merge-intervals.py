@@ -1,7 +1,6 @@
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        # def mergeIntervals(intervals : List[List[int]]) -> List[List[int]]:
-        intervals.sort(key=lambda pair: pair[0])
+        intervals.sort(key=lambda x: x[0])
         res = [intervals[0]]
         for i in range(1, len(intervals)):
             prevPair = res[-1]
@@ -11,5 +10,6 @@ class Solution:
             else:
                 res.append(curPair)
         return res
+
 
         
