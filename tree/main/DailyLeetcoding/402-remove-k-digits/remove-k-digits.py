@@ -6,7 +6,6 @@ class Solution:
                 k -= 1
                 stack.pop()
             stack.append(ch)
-        if k > 0:
-            stack = stack[:len(stack) - k]
+        stack = stack[:len(stack) - k]
         res = "".join(stack).lstrip("0")
         return  res if res != "" else "0"
