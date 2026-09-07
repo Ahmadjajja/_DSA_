@@ -14,17 +14,7 @@ class Solution:
                 else:
                     matrix[row][col] = max(
                         matrix[row][col - 1], # prev
-                        matrix[row - 1][col - 1], # diag
                         matrix[row - 1][col], # up
                     )
 
-        print(matrix)
-
         return matrix[len(matrix) - 1][len(matrix[0]) - 1]
-
-
-
-
-
-
-        
