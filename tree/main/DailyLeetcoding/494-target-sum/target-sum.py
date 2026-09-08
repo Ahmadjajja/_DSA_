@@ -13,8 +13,8 @@ class Solution:
 
         return dp[target]
 
-        # tc -> O(n)
-        # sc -> O(n)
+        # tc -> O(n * m)
+        # sc -> O(m)
 
 
         # cache = {}
