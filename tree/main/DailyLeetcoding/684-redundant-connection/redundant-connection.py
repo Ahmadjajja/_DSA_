@@ -4,11 +4,10 @@ class Solution:
         # rank = [1] * (len(edges) + 1)
 
         def find(n):
-            p = par[n]
-            while p != par[p]:
-                par[p] = par[par[p]]
-                p = par[p]
-            return p
+            if par[n] != n:
+                return find(par[n])
+            else:
+                return n
 
         def union(n1, n2):
             p1, p2 = find(n1), find(n2)
