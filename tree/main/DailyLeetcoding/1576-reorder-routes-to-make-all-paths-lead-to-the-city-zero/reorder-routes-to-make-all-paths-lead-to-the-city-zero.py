@@ -14,8 +14,8 @@ class Solution:
             for nei in outward[node]:
                 if nei in visit:
                     continue
-                dfs(nei)
                 count += 1
+                dfs(nei)
             for nei in inward[node]:
                 if nei in visit:
                     continue	
