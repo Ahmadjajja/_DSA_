@@ -1,34 +1,23 @@
-from typing import List
-
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        if len(nums) == 1:
+        total = sum(nums)
+        if total % 2 != 0:
             return False
-
-        total = 0
-        for n in nums:
-            total += n
-
-        if total % 2 == 1:
-            return False
-
         target = total // 2
 
-        memo = {}  # (index, current_sum) -> bool
-
-        def dfs(index: int, cSum: int) -> bool:
-            if cSum == target:
+        cache = {}
+        def dfs(curIndex, remaining):
+            if remaining == 0:
                 return True
-            if index == len(nums) or cSum > target:
+            if remaining < 0 or curIndex == len(nums):
                 return False
-            key = (index, cSum)
-            if key in memo:
-                return memo[key]
+            if (curIndex, remaining) in cache:
+                return cache[(curIndex, remaining)]
 
-            # choose or skip
-            res = dfs(index + 1, cSum + nums[index]) or dfs(index + 1, cSum)
-            memo[key] = res
-            return res
+            # either skip nums[curIndex] or include it
+            result = dfs(curIndex + 1, remaining) or dfs(curIndex + 1, remaining - nums[curIndex])
 
+            cache[(curIndex, remaining)] = result
+            return result
 
-        return dfs(0, 0)
+        return dfs(0, target)
