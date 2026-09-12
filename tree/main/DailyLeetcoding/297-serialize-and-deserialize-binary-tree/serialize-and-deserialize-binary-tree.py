@@ -23,15 +23,14 @@ class Codec:
 
     def deserialize(self, data):
         vals = data.split(",")
-        i = 0
+        self.i = 0
         def dfs():
-            nonlocal i
-            if vals[i] == 'N':
-                i += 1
+            if vals[self.i] == 'N':
+                self.i += 1
                 return None
             
-            node = TreeNode(int(vals[i]))
-            i += 1
+            node = TreeNode(int(vals[self.i]))
+            self.i += 1
             node.left = dfs()
             node.right = dfs()
             return node
