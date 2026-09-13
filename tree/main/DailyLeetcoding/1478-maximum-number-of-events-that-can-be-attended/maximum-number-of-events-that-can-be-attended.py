@@ -20,7 +20,7 @@ class Solution:
                 heapq.heappop(minH)
                 countConf += 1
 
-            if i == n and not minH:   # nothing left to process
-                break
+            # if i == n and not minH:   # nothing left to process
+            #     break
 
         return countConf
