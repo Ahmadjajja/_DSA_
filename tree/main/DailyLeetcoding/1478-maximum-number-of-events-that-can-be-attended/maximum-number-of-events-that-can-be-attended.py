@@ -1,6 +1,6 @@
 class Solution:
     def maxEvents(self, events: List[List[int]]) -> int:
-        events.sort()
+        events.sort(key=lambda e: e[0])
         minH = []          # heap of end days for started, unattended events
         i, n = 0, len(events)
         countConf = 0
