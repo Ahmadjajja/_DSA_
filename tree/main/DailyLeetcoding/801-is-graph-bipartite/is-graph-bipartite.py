@@ -5,8 +5,7 @@ class Solution:
             if odd[i]:
                 return True
             odd[i] = -1
-            q = deque()
-            q.append(i)
+            q = deque([i])
             while q:
                 index = q.popleft()
                 for nei in graph[index]:
