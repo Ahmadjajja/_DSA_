@@ -1,13 +1,17 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        res = curSum = 0
-        prefixSums = { 0 : 1 }
-
+        preFixSumCount = {0: 1}
+        res = 0
+        preFixSum = 0
         for num in nums:
-            curSum += num
-            diff = curSum - k
+            preFixSum += num
 
-            res += prefixSums.get(diff, 0)
-            prefixSums[curSum] = 1 + prefixSums.get(curSum, 0)
-
+            if preFixSum - k in preFixSumCount:
+                res += preFixSumCount[preFixSum - k]
+            
+            preFixSumCount[preFixSum] = 1 + preFixSumCount.get(preFixSum, 0)
+        
         return res
+
+
+        
