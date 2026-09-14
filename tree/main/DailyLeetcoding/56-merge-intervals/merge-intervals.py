@@ -10,6 +10,3 @@ class Solution:
             else:
                 res.append(curPair)
         return res
-
-
-        
