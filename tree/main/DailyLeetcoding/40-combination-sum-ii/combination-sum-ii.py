@@ -1,38 +1,24 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         candidates.sort()
-        answer = []
+        combinations = []
 
-        def DFS(index, com, sum):
-            nonlocal answer
 
-            # base condition
-            if sum >= target:
-                if sum == target:
-                    answer.append(com.copy())
-                    return
-                else:
-                    return
-            
-            if index >= len(candidates):
+        def dfs(i, c, s):
+            if s == target:
+                combinations.append(c.copy())
                 return
+            if i == len(candidates) or s > target:
+                return 
             
-            # add current element to combination
-            com.append(candidates[index])
-            sum += candidates[index]
 
-            DFS(index + 1, com, sum)
+            dfs(i + 1, c + [candidates[i]], s + candidates[i])
 
-            com.pop()
-            sum -= candidates[index]
+            while i + 1 < len(candidates) and candidates[i] == candidates[i+1]:
+                i+=1
 
-            # ignore current element 
-            while index + 1 < len(candidates) and candidates[index] == candidates[index + 1]:
-                index += 1
+            dfs(i + 1, c, s)
 
-            DFS(index + 1, com, sum)
+        dfs(0, [], 0)
 
-        DFS(0, [], 0)
-
-        return answer
-        
+        return combinations
