@@ -1,8 +1,10 @@
-<h2><a href="https://leetcode.com/problems/min-cost-climbing-stairs">Min Cost Climbing Stairs</a></h2> <img src='https://img.shields.io/badge/Difficulty-Easy-brightgreen' alt='Difficulty: Easy' /><hr><p>You are given an integer array <code>cost</code> where <code>cost[i]</code> is the cost of <code>i<sup>th</sup></code> step on a staircase. Once you pay the cost, you can either climb one or two steps.</p>
+<h2><a href="https://leetcode.com/problems/min-cost-climbing-stairs">Min Cost Climbing Stairs</a></h2> <img src='https://img.shields.io/badge/Difficulty-Easy-brightgreen' alt='Difficulty: Easy' /><hr><p>You are given an integer array <code>cost</code> where <code>cost[i]</code> is the cost of <code>i<sup>th</sup></code> step on a staircase.</p>
 
-<p>You can either start from the step with index <code>0</code>, or the step with index <code>1</code>.</p>
+<p>Once you pay the cost, you can either climb <strong>one</strong> or <strong>two</strong> steps.</p>
 
-<p>Return <em>the minimum cost to reach the top of the floor</em>.</p>
+<p>You can either start from the step with index 0, or the step with index 1.</p>
+
+<p>Return the <strong>minimum</strong> cost to reach the top of the staircase, which is the position just past the last step (index <code>cost.length</code>).</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
