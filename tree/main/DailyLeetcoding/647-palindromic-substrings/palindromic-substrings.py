@@ -1,5 +1,6 @@
 class Solution:
     def countSubstrings(self, st: str) -> int:
+
         count = 0
         for i in range(len(st)):
             count += 1
@@ -22,4 +23,5 @@ class Solution:
         
         return count
 
-
+# TC: O(n2)
+# SC: O(1)
