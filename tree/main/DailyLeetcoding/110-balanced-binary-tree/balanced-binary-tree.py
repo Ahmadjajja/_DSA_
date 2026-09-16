@@ -11,9 +11,13 @@ class Solution:
                 return [0, True]
             
             left = dfs(node.left)
+            if not left[1]:
+                return [0, False]
             right = dfs(node.right)
+            if not right[1]:
+                return [0, False]
 
-            if not (left[1] and right[1]) or abs(left[0] - right[0]) > 1:
+            if abs(left[0] - right[0]) > 1:
                 return [0, False]
 
             return [1 + max(left[0], right[0]), True]
