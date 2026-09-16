@@ -11,19 +11,19 @@ class Solution:
         def dfs(node):
             nonlocal k
             if not node:
-                return 'A'
+                return None
 
             left = dfs(node.left)
-            if left != 'A':
+            if left is not None:
                 return left
             k -= 1
             if k == 0:
                 return node.val
             right = dfs(node.right)
-            if right != 'A':
+            if right is not None:
                 return right
 
-            return 'A'
+            return None
 
         
         return dfs(root)
