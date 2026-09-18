@@ -1,19 +1,11 @@
+from collections import Counter
+import heapq
+
 class Solution:
     def topKFrequent(self, words: list[str], k: int) -> list[str]:
+
         freq = Counter(words)
-        maxH = []
-        for key, val in freq.items():
-            maxH.append((-val, key))
-
+        maxH = [[-count, word] for word, count in freq.items()]
         heapq.heapify(maxH)
-        res = []
-        for _ in range(k):
-            freq, val = heapq.heappop(maxH)
-            res.append(val)
-        return res
 
-
-        # tc -> O(nlogn) + O(n) + O(u) + O(u) + O(klogu) -> O(nlogn)
-        # sc -> O(u) + O(u) + O(k) -> O(n)
-
-        
+        return [heapq.heappop(maxH)[1] for _ in range(k)]
