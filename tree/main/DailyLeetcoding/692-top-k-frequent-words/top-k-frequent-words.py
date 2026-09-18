@@ -10,20 +10,21 @@ class Solution:
             else:
                 initial_freq[word] = [1, i]
         
-        print("initial_freq : ", initial_freq)
         cur_freq = {}
         for key, val in initial_freq.items():
             freq, index = val
             cur_freq[(-freq, index)] = key
 
-        print("cur_freq : ", cur_freq)
         maxH = list(cur_freq.keys())
         heapq.heapify(maxH)
         res = []
         for _ in range(k):
             poppedElem = heapq.heappop(maxH)
-            print("poppedElem : ", poppedElem)
             res.append(cur_freq[poppedElem])
+
         return res
+
+        # tc -> O(nlogn) + O(n) + O(u) + O(u) + O(klogu) -> O(nlogn)
+        # sc -> O(n) + O(u) + O(k) -> O(n)
 
         
