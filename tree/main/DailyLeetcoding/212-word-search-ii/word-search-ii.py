@@ -3,19 +3,18 @@ class TrieNode:
         self.children = {}
         self.isWord = False
 
-    def addWord(self, word):
-        cur = self
-        for c in word:
-            if c not in cur.children:
-                cur.children[c] = TrieNode()
-            cur = cur.children[c]
-        cur.isWord = True
-
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         root = TrieNode()
-        for w in words:
-            root.addWord(w)
+
+        # add word in trie
+        for word in words:
+            cur = root
+            for c in word:
+                if c not in cur.children:
+                    cur.children[c] = TrieNode()
+                cur = cur.children[c]
+            cur.isWord = True
 
         ROWS, COLS = len(board), len(board[0])
         res, visit = set(), set()
