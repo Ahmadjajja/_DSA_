@@ -26,6 +26,3 @@ class Solution:
             l3.next = ListNode(carry, None)
         
         return dummy.next
-
-            
-        
