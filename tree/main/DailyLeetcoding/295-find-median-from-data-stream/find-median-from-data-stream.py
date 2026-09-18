@@ -1,6 +1,10 @@
 class MedianFinder:
 
     def __init__(self):
+        # two heaps, 
+        # maxheap -> small (we'll put -ve with each num to make it max heap)
+        # minheap -> large
+        # heaps should be equal size
         self.small, self.large = [], []
         
 
