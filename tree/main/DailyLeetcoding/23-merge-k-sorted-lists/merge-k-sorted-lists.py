@@ -8,15 +8,13 @@ class Solution:
         if not lists or len(lists) == 0:
             return None
 
-        mergedList = []
-
         while len(lists) > 1:
+            mergedList = []
             for i in range(0, len(lists), 2):
                 list1 = lists[i]
                 list2 = lists[i + 1] if i + 1 < len(lists) else None
                 mergedList.append(self.mergeLists(list1, list2))
             lists = mergedList
-            mergedList = []
         
         return lists[0]
     
