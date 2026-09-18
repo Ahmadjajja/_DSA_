@@ -3,38 +3,23 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+import heapq
 class Solution:
     def mergeKLists(self, lists: list[ListNode | None]) -> ListNode | None:
-        if not lists or len(lists) == 0:
-            return None
 
-        while len(lists) > 1:
-            mergedList = []
-            for i in range(0, len(lists), 2):
-                list1 = lists[i]
-                list2 = lists[i + 1] if i + 1 < len(lists) else None
-                mergedList.append(self.mergeLists(list1, list2))
-            lists = mergedList
+        minH = []
+        for i, lis in enumerate(lists):
+            if lis:
+                minH.append((lis.val, i, lis))
         
-        return lists[0]
-    
-    def mergeLists(self, l1, l2):
+        heapq.heapify(minH)
+
         dummy = cur = ListNode()
-        while l1 and l2:
-            if l1.val <= l2.val:
-                cur.next = l1
-                l1 = l1.next
-            else:
-                cur.next = l2
-                l2 = l2.next
+        while minH:
+            val, i, node = heapq.heappop(minH)
+            cur.next = node
             cur = cur.next
+            if node.next:
+                heapq.heappush(minH, (node.next.val, i, node.next))
         
-        cur.next = l1 or l2
         return dummy.next
-
-
-
-            
-
-
-        
