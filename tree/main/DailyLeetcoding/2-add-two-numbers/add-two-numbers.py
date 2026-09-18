@@ -9,7 +9,7 @@ class Solution:
         l3 = dummy
 
         carry = 0
-        while l1 or l2:
+        while l1 or l2 or carry:
             curSum = carry
             if l1:
                 curSum += l1.val
@@ -21,8 +21,5 @@ class Solution:
             carry = curSum // 10
             l3.next = ListNode(curSum % 10, None)
             l3 = l3.next
-        
-        if carry > 0:
-            l3.next = ListNode(carry, None)
         
         return dummy.next
