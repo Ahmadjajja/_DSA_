@@ -18,11 +18,8 @@ class Solution:
                 curSum += l2.val
                 l2 = l2.next
             
-            curNodVal = curSum % 10
-            print("curNodVal -> ", curNodVal)
             carry = curSum // 10
-            print("carry -> ", carry)
-            l3.next = ListNode(curNodVal, None)
+            l3.next = ListNode(curSum % 10, None)
             l3 = l3.next
         
         if carry > 0:
