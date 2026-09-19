@@ -1,18 +1,11 @@
-from typing import List
-
 class Solution:
-    def maxProduct(self, nums: List[int]) -> int:
-        res = max(nums)
-        minPro = 1
-        maxPro = 1
+    def maxProduct(self, nums: list[int]) -> int:
+        prefix, suffix = 0, 0
+        n, res = len(nums), nums[0]
 
-        for n in nums:
-            if n == 0:
-                minPro, maxPro = 1, 1
-            tmp = maxPro * n
-            maxPro = max(tmp, minPro * n, n)
-            minPro = min(tmp, minPro * n, n)
-
-            res = max(res, maxPro)
+        for i in range(n):
+            prefix = nums[i] * (prefix or 1)
+            suffix = nums[n - i - 1] * (suffix or 1)
+            res = max(res, prefix, suffix)
         
         return res
